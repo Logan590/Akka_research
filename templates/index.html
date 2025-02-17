@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des appareils</title>
+</head>
+<body>
+    <h1>Ajouter une entrée unique de fonctionnement d'appareil</h1>
+    <form action="/ajouter/" method="post">
+        <label for="appareil_id">Choisir un appareil :</label>
+        <select name="appareil_id" required>
+            {% for appareil in appareils %}
+                <option value="{{ appareil.id }}">{{ appareil.nom }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="heure_debut">Heure de début :</label>
+        <input type="time" name="heure_debut" required>
+        <br><br>
+
+        <label for="heure_fin">Heure de fin :</label>
+        <input type="time" name="heure_fin" required>
+        <br><br>
+
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <h1>Ajouter des entrées récurrentes de fonctionnement d'appareil</h1>
+
+    <form action="/ajouter_rec/" method="post">
+        <label for="appareil_id">Choisir un appareil :</label>
+        <select name="appareil_id" required>
+            {% for appareil in appareils %}
+                <option value="{{ appareil.id }}">{{ appareil.nom }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+    
+        <label for="heure_debut">Heure de début :</label>
+        <input type="time" name="heure_debut" required>
+        <br><br>
+    
+        <label for="duree">Durée (minutes) :</label>
+        <input type="number" name="duree" min="1" required>
+        <br><br>
+    
+        <label for="recur">Nombre de récurrences :</label>
+        <input type="number" name="recur" min="1" value="1" required>
+        <br><br>
+    
+        <label for="intervalle">Intervalle entre récurrences (minutes) :</label>
+        <input type="number" name="intervalle" min="1" value="0" required>
+        <br><br>
+    
+        <button type="submit">Ajouter</button>
+    </form>    
+    
+    <h2>Liste des activités</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nom de l'appareil</th>
+                <th>Consommation (W)</th>
+                <th>Appel de puissance (W)</th>
+                <th>Heure de début</th>
+                <th>Heure de fin</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for activite in activites %}
+            <tr>
+                <td>{{ activite.appareil.nom }}</td>
+                <td>{{ activite.appareil.consommation_W }}</td>
+                <td>{{ activite.appareil.appel_puissance_W }}</td>
+                <td>{{ activite.heure_debut }}</td>
+                <td>{{ activite.heure_fin }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/telecharger/">Télécharger le fichier JSON</a>
+</body>
+</html>
