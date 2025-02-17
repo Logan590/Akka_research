@@ -3,13 +3,12 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime, time, timedelta
 import json
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
-# Modèle de données pour un appareil
-class Appareil(BaseModel):
+class Device(BaseModel):
     id: int
     nom: str
     consommation_W: int
@@ -17,101 +16,79 @@ class Appareil(BaseModel):
 
 
 try:
-    with open("ListeDesAppareilsDom.json", "r") as file:
+    with open("DevicesList.json", "r") as file:
         data = json.load(file)
-        appareils = data.get("appareils",[])
+        devices = data.get("devices",[])
 except FileNotFoundError:
-    appareils = [
-        {"id": 1, "nom": "Réfrigérateur", "consommation_W": 150, "appel_puissance_W": 600},
-        {"id": 2, "nom": "Congélateur", "consommation_W": 200, "appel_puissance_W": 800},
-        # Ajouter plus d'appareils ici
-    ]
+    print("DevicesList.json not found.")
 
-# Dossier de templates pour rendre les HTML
 templates = Jinja2Templates(directory="templates")
 
-# Charger le fichier JSON
 
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     try:
-        with open("activites.json", "r", encoding="utf-8") as file:
+        with open("ProbabilityDuration.json", "r", encoding="utf-8") as file:
             data = json.load(file)
             activites = data["activites"]
-            return templates.TemplateResponse("index.html", {"request": request, "appareils": appareils, "activites": activites})
+            return templates.TemplateResponse("index.html", {"request": request, "devices": devices, "activites": activites})
     except FileNotFoundError:
-        return templates.TemplateResponse("index.html", {"request": request, "appareils": appareils})
+        return templates.TemplateResponse("index.html", {"request": request, "devices": devices})
     
 
-    
-
-
-
-# Route pour ajouter des entrées de fonctionnement des appareils
-@app.post("/ajouter/")
+@app.post("/add_duration/")
 async def ajouter(
     request: Request,
-    appareil_id: int = Form(...),
-    heure_debut: time = Form(...),
-    heure_fin: time = Form(...),
+    device_id: int = Form(...),
+    inUseDuration: time = Form(...),
+    probability: float = Form(...),
 ):
     
-    # Convertir les heures en objets datetime
     try:
-        heure_debut = heure_debut.strftime("%H:%M")
-        heure_fin = heure_fin.strftime("%H:%M")
+        inUseDuration = inUseDuration.strftime("%H:%M")
     except ValueError:
-        return {"error": "Format d'heure invalide"}
+        return {"error": "Invalid hours format"}
 
-    print(type(heure_debut))
-    print(heure_debut)
-    # Chercher l'appareil par ID
-    appareil = next((a for a in appareils if a["id"] == appareil_id), None)
-    if appareil is None:
-        return {"error": "Appareil non trouvé"}
 
-    # Ajouter les périodes de fonctionnement dans le fichier JSON ou dans la liste
+    device = next((a for a in devices if a["id"] == device_id), None)
+    if device is None:
+        return {"error": "Device not found"}
+
     new_entry = {
-        "appareil": appareil,
-        "heure_debut": heure_debut,
-        "heure_fin": heure_fin
+        "device": device,
+        "inUseDuration": inUseDuration,
+        "probability": probability
     }
     
-    # Sauvegarde dans un fichier JSON
     try:
-        with open("activites.json", "r") as file:
+        with open("ProbabilityDuration.json", "r") as file:
             data = json.load(file)
     except FileNotFoundError:
         data = {"activites": []}
 
     data["activites"].append(new_entry)
 
-    # Sauvegarder dans le fichier
-    with open("activites.json", "w") as file:
+    with open("ProbabilityDuration.json", "w") as file:
         json.dump(data, file, indent=4)
 
-    with open("activites.json", "r", encoding="utf-8") as file:
-        data = json.load(file)
-        activites = data["activites"]
-
-    return templates.TemplateResponse("index.html", {"request": request, "appareils": appareils, "activites": activites})
+    return templates.TemplateResponse("index.html", {"request": request, "devices": device, "activites": data["activites"]})
 
 
 
 @app.post("/ajouter_rec/")
 async def ajouter(
     request: Request,
-    appareil_id: int = Form(...),
+    device_id: int = Form(...),
     heure_debut: time = Form(...),
     duree: int = Form(...),
     recur: int = Form(...),
     intervalle: int = Form(...)
 ):
-    # Chercher l'appareil par ID
-    appareil = next((a for a in appareils if a["id"] == appareil_id), None)
-    if appareil is None:
-        return {"error": "Appareil non trouvé"}
+    # Chercher l'device par ID
+    device = next((a for a in devices if a["id"] == device_id), None)
+    if device is None:
+        return {"error": "device not found"}
 
     activites = []
 
@@ -121,7 +98,7 @@ async def ajouter(
     for _ in range(recur):
         heure_fin = heure_actuelle + timedelta(minutes=duree)
         activites.append({
-            "appareil": appareil,
+            "device": device,
             "heure_debut": heure_actuelle.strftime("%H:%M"),
             "heure_fin": heure_fin.strftime("%H:%M")
         })
@@ -146,7 +123,7 @@ async def ajouter(
         data = json.load(file)
         activites = data["activites"]
 
-    return templates.TemplateResponse("index.html", {"request": request, "appareils": appareils, "activites": activites})
+    return templates.TemplateResponse("index.html", {"request": request, "devices": devices, "activites": activites})
 
 
 # Route pour télécharger le fichier JSON
@@ -155,3 +132,32 @@ async def telecharger():
     with open("activites.json", "r") as file:
         data = json.load(file)
     return JSONResponse(content=data)
+
+
+@app.post("/enregistrer_probabilites/")
+async def enregistrer_probabilites(request: Request):
+    # Récupérer les données du formulaire
+    form_data = await request.form()
+
+    # Initialiser la structure de la matrice
+    matrice = []
+
+    # Plages horaires toutes les 10 minutes, de 0 à 1430 (1440 minutes en total)
+    for minute in range(0, 1440, 10):  # Pour chaque minute de la journée (par tranches de 10 minutes)
+        minute_data = []
+        for appareil in devices:
+            # Accéder à l'ID et récupérer la probabilité pour chaque appareil à cette minute
+            device_id = appareil["id"]
+            print(device_id)
+            prob_key = f"proba_{minute}_{device_id}"
+            prob_value = form_data.get(prob_key, 0)  # Valeur par défaut à 0 si non fournie
+            minute_data.append(float(prob_value))  # Ajouter la probabilité à la liste des minutes
+        
+        # Ajouter les données de chaque minute à la matrice
+        matrice.append({f"{minute // 60:02d}h{minute % 60:02d}": minute_data})
+
+    # Sauvegarder dans un fichier JSON
+    with open("probabilites.json", "w") as file:
+        json.dump(matrice, file, indent=4)
+
+    return JSONResponse(content={"message": "Probabilités enregistrées avec succès"})
