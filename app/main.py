@@ -18,9 +18,18 @@ class Device(BaseModel):
 try:
     with open("DevicesList.json", "r") as file:
         data = json.load(file)
-        devices = data.get("devices",[])
+        devices_list = data.get("devices",[])
+        all_devices = devices_list
 except FileNotFoundError:
     print("DevicesList.json not found.")
+
+try:
+    with open("DevicesOwnByUser.json", "r") as file:
+        data = json.load(file)
+        devices = data.get("devices",[])
+except FileNotFoundError:
+    print("DevicesOwnByUser.json not found.")
+
 
 templates = Jinja2Templates(directory="templates")
 
@@ -32,10 +41,30 @@ async def index(request: Request):
         with open("ProbabilityDuration.json", "r", encoding="utf-8") as file:
             data = json.load(file)
             activites = data["activites"]
-            return templates.TemplateResponse("index.html", {"request": request, "devices": devices, "activites": activites})
+            return templates.TemplateResponse("index.html", {"request": request, "devices": devices_list, "activites": activites})
     except FileNotFoundError:
-        return templates.TemplateResponse("index.html", {"request": request, "devices": devices})
+        return templates.TemplateResponse("index.html", {"request": request, "devices": devices_list})
     
+@app.get("/add_devices", response_class=HTMLResponse)
+async def index(request: Request):
+    with open("ProbabilityDuration.json", "r", encoding="utf-8") as file:
+        data = json.load(file)
+        activites = data["activites"]
+        return templates.TemplateResponse("Set_device_list.html", {"request": request, "devices": devices_list})
+        
+@app.post("/save-devices")
+async def save_devices(request: Request, selected_devices: list[str] = Form(...)):  
+    """
+    Endpoint pour sauvegarder les appareils sélectionnés dans DevicesOwnByUser.json.
+    """
+    # 🔹 Filtrer les appareils sélectionnés
+    selected_devices_list = [device for device in all_devices if str(device["id"]) in selected_devices]
+
+    # 🔹 Sauvegarder dans DevicesOwnByUser.json
+    with open("DevicesOwnByUser.json", "w", encoding="utf-8") as file:
+        json.dump({"devices": selected_devices_list}, file, indent=4, ensure_ascii=False)
+
+    return templates.TemplateResponse("Sleep_time.html", {"request": request, "devices": selected_devices_list})
 
 @app.post("/add_duration/")
 async def ajouter(
@@ -134,26 +163,74 @@ async def telecharger():
     return JSONResponse(content=data)
 
 
+# @app.post("/enregistrer_probabilites/")
+# async def enregistrer_probabilites(request: Request):
+#     # Récupérer les données du formulaire
+#     form_data = await request.form()
+
+#     # Initialiser la structure de la matrice
+#     matrice = []
+
+#     # Plages horaires toutes les 10 minutes, de 0 à 1430 (1440 minutes en total)
+#     for minute in range(0, 1440, 10):  # Pour chaque minute de la journée (par tranches de 10 minutes)
+#         minute_data = []
+#         for appareil in devices:
+#             # Accéder à l'ID et récupérer la probabilité pour chaque appareil à cette minute
+#             device_id = appareil["id"]
+#             print(device_id)
+#             prob_key = f"proba_{minute}_{device_id}"
+#             prob_value = form_data.get(prob_key, 0)  # Valeur par défaut à 0 si non fournie
+#             minute_data.append(float(prob_value))  # Ajouter la probabilité à la liste des minutes
+        
+#         # Ajouter les données de chaque minute à la matrice
+#         matrice.append({f"{minute // 60:02d}h{minute % 60:02d}": minute_data})
+
+#     # Sauvegarder dans un fichier JSON
+#     with open("probabilites.json", "w") as file:
+#         json.dump(matrice, file, indent=4)
+
+#     return JSONResponse(content={"message": "Probabilités enregistrées avec succès"})
+
+
+
+
+def time_to_minutes(time_str):
+    """Convertit une heure 'HH:MM' en minutes depuis minuit."""
+    h, m = map(int, time_str.split(":"))
+    return h * 60 + m
+
 @app.post("/enregistrer_probabilites/")
 async def enregistrer_probabilites(request: Request):
-    # Récupérer les données du formulaire
     form_data = await request.form()
 
-    # Initialiser la structure de la matrice
+    # Récupération des horaires
+    bedtime = time_to_minutes(form_data["bedtime"])
+    getuptime = time_to_minutes(form_data["getuptime"])
+    home_start = time_to_minutes(form_data["home_start"])
+    home_end = time_to_minutes(form_data["home_end"])
+
     matrice = []
 
-    # Plages horaires toutes les 10 minutes, de 0 à 1430 (1440 minutes en total)
-    for minute in range(0, 1440, 10):  # Pour chaque minute de la journée (par tranches de 10 minutes)
+    for minute in range(0, 1440, 10):  # De 00:00 à 23:50 par pas de 10 minutes
         minute_data = []
+
+        # Si la personne dort -> probabilité = 0
+        if bedtime <= minute < getuptime:
+            prob_value = 0
+        # Si la personne est chez elle -> probabilité = 1
+        elif home_start <= minute < home_end:
+            prob_value = 1
+        else:
+            prob_value = 0  # Par défaut, absent = 0
+
+        # Stocker la probabilité pour chaque appareil
         for appareil in devices:
-            # Accéder à l'ID et récupérer la probabilité pour chaque appareil à cette minute
-            device_id = appareil["id"]
-            print(device_id)
-            prob_key = f"proba_{minute}_{device_id}"
-            prob_value = form_data.get(prob_key, 0)  # Valeur par défaut à 0 si non fournie
-            minute_data.append(float(prob_value))  # Ajouter la probabilité à la liste des minutes
-        
-        # Ajouter les données de chaque minute à la matrice
+            if prob_value == 1:
+                minute_data.append(appareil.proba_defaut)
+            else:
+                minute_data.append(appareil.proba_off)
+
+        # Format de l'heure
         matrice.append({f"{minute // 60:02d}h{minute % 60:02d}": minute_data})
 
     # Sauvegarder dans un fichier JSON
@@ -161,3 +238,5 @@ async def enregistrer_probabilites(request: Request):
         json.dump(matrice, file, indent=4)
 
     return JSONResponse(content={"message": "Probabilités enregistrées avec succès"})
+
+

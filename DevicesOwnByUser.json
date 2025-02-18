@@ -1,0 +1,28 @@
+{
+    "devices": [
+        {
+            "id": 1,
+            "nom": "Refrigerateur",
+            "consommation_W": 150,
+            "appel_puissance_W": 600
+        },
+        {
+            "id": 2,
+            "nom": "Congelateur",
+            "consommation_W": 200,
+            "appel_puissance_W": 800
+        },
+        {
+            "id": 3,
+            "nom": "Lave-linge",
+            "consommation_W": 500,
+            "appel_puissance_W": 2500
+        },
+        {
+            "id": 4,
+            "nom": "Lave-vaisselle",
+            "consommation_W": 1200,
+            "appel_puissance_W": 2200
+        }
+    ]
+}

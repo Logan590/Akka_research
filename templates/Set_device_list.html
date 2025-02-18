@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des devices</title>
+</head>
+
+<body>
+    <h1>Ajouter un appareil à la liste des appareils de l'utilisateur</h1>
+    <form action="/save-devices" method="post">
+        <p>Quels appareils de la liste suivante avez vous ?</p>
+        {% for device in devices %}
+        <input type="checkbox" id="device_{{ device.id }}" name="selected_devices" value="{{ device.id }}">
+        <label for="device_{{ device.id }}">{{ device.nom }}</label><br>
+        {% endfor %}
+        <input type="submit" value="Enregistrer">
+    </form>
+</body>
+
+</html>

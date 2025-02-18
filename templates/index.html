@@ -9,6 +9,14 @@
 
 <body>
     <h1>Ajouter une dur&eacute;e d'activit&eacute; d'un appareil</h1>
+    <form action="/save-devices" method="post">
+        <p>Quels appareils de la liste suivante avez vous ?</p>
+        {% for device in devices %}
+        <input type="checkbox" id="device_{{ device.id }}" name="selected_devices" value="{{ device.id }}">
+        <label for="device_{{ device.id }}">{{ device.nom }}</label><br>
+        {% endfor %}
+        <input type="submit" value="Enregistrer">
+    </form>
     <form action="/add_duration/" method="post">
         <label for="device_id">Choisir un device :</label>
         <select name="device_id" required>

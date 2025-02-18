@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des devices</title>
+</head>
+<body>
+    <h1>Ajouter une habitude de sommeil</h1>
+    <p>Durant cette période, un ensemble d'équipements ne seront pas utilisés.</p>
+    
+    <form action="/enregistrer_probabilites/" method="post">
+        <p>Quelles sont vos habitudes de sommeil ?</p>
+        <label for="bedtime">Heure de coucher</label>
+        <input type="time" id="bedtime" name="bedtime">
+        <br>
+        <label for="getuptime">Heure de lever</label>
+        <input type="time" id="getuptime" name="getuptime">
+        <br>
+
+        <p>Sur quelles plages horaires êtes-vous à la maison aujourd'hui ?</p>
+        <label for="home_start">Début</label>
+        <input type="time" id="home_start" name="home_start">
+        <br>
+        <label for="home_end">Fin</label>
+        <input type="time" id="home_end" name="home_end">
+        <br>
+
+        <input type="submit" value="Enregistrer">
+    </form>
+</body>
+</html>

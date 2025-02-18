@@ -4,319 +4,425 @@
             "id": 1,
             "nom": "Refrigerateur",
             "consommation_W": 150,
-            "appel_puissance_W": 600
+            "appel_puissance_W": 600,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 2,
             "nom": "Congelateur",
             "consommation_W": 200,
-            "appel_puissance_W": 800
+            "appel_puissance_W": 800,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 3,
             "nom": "Lave-linge",
             "consommation_W": 500,
-            "appel_puissance_W": 2500
+            "appel_puissance_W": 2500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 4,
             "nom": "Lave-vaisselle",
             "consommation_W": 1200,
-            "appel_puissance_W": 2200
+            "appel_puissance_W": 2200,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 5,
             "nom": "Four electrique",
             "consommation_W": 2500,
-            "appel_puissance_W": 3000
+            "appel_puissance_W": 3000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 6,
             "nom": "Micro-ondes",
             "consommation_W": 1200,
-            "appel_puissance_W": 1500
+            "appel_puissance_W": 1500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 7,
             "nom": "Plaque de cuisson electrique",
             "consommation_W": 2000,
-            "appel_puissance_W": 2500
+            "appel_puissance_W": 2500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 8,
             "nom": "Televiseur LCD",
             "consommation_W": 100,
-            "appel_puissance_W": 150
+            "appel_puissance_W": 150,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 9,
             "nom": "Ordinateur de bureau",
             "consommation_W": 300,
-            "appel_puissance_W": 500
+            "appel_puissance_W": 500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 10,
             "nom": "Aspirateur",
             "consommation_W": 800,
-            "appel_puissance_W": 1600
+            "appel_puissance_W": 1600,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 11,
             "nom": "Climatiseur",
             "consommation_W": 2000,
-            "appel_puissance_W": 3000
+            "appel_puissance_W": 3000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 12,
             "nom": "Ventilateur",
             "consommation_W": 50,
-            "appel_puissance_W": 100
+            "appel_puissance_W": 100,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 13,
             "nom": "Radiateur electrique",
             "consommation_W": 1500,
-            "appel_puissance_W": 2000
+            "appel_puissance_W": 2000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 14,
             "nom": "Chauffe-eau electrique",
             "consommation_W": 3000,
-            "appel_puissance_W": 3500
+            "appel_puissance_W": 3500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 15,
             "nom": "Fer a repasser",
             "consommation_W": 1200,
-            "appel_puissance_W": 1500
+            "appel_puissance_W": 1500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 16,
             "nom": "Kit video surveillance, 4 cameras",
             "consommation_W": 50,
-            "appel_puissance_W": 100
+            "appel_puissance_W": 100,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 17,
             "nom": "6 Ampoules LED (18 W)",
             "consommation_W": 108,
-            "appel_puissance_W": 108
+            "appel_puissance_W": 108,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 18,
             "nom": "Ascenseur",
             "consommation_W": 3000,
-            "appel_puissance_W": 5000
+            "appel_puissance_W": 5000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 19,
             "nom": "Porte de garage motorisee",
             "consommation_W": 150,
-            "appel_puissance_W": 500
+            "appel_puissance_W": 500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 20,
             "nom": "Plaques de cuisson a induction",
             "consommation_W": 2500,
-            "appel_puissance_W": 3000
+            "appel_puissance_W": 3000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 21,
             "nom": "Ordinateur Mac Pro",
             "consommation_W": 350,
-            "appel_puissance_W": 500
+            "appel_puissance_W": 500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 22,
             "nom": "Televiseur TV QLED 55 en mode HDR",
             "consommation_W": 200,
-            "appel_puissance_W": 250
+            "appel_puissance_W": 250,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 23,
             "nom": "Four electrique (3000W)",
             "consommation_W": 3000,
-            "appel_puissance_W": 3500
+            "appel_puissance_W": 3500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 24,
             "nom": "Friteuse",
             "consommation_W": 1800,
-            "appel_puissance_W": 2000
+            "appel_puissance_W": 2000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 25,
             "nom": "Plancha",
             "consommation_W": 2000,
-            "appel_puissance_W": 2200
+            "appel_puissance_W": 2200,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 26,
             "nom": "Seche-cheveux (2000W)",
             "consommation_W": 2000,
-            "appel_puissance_W": 2200
+            "appel_puissance_W": 2200,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 27,
             "nom": "Bouilloire",
             "consommation_W": 2200,
-            "appel_puissance_W": 2500
+            "appel_puissance_W": 2500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 28,
             "nom": "Console de jeu, PlayStation 5",
             "consommation_W": 200,
-            "appel_puissance_W": 250
+            "appel_puissance_W": 250,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 29,
             "nom": "Cafetiere",
             "consommation_W": 1000,
-            "appel_puissance_W": 1500
+            "appel_puissance_W": 1500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 30,
             "nom": "Four a micro-ondes (1000W)",
             "consommation_W": 1000,
-            "appel_puissance_W": 1200
+            "appel_puissance_W": 1200,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 31,
             "nom": "Grille-pain",
             "consommation_W": 800,
-            "appel_puissance_W": 1000
+            "appel_puissance_W": 1000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 32,
             "nom": "Gaufrier",
             "consommation_W": 1000,
-            "appel_puissance_W": 1200
+            "appel_puissance_W": 1200,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 33,
             "nom": "Mixeur",
             "consommation_W": 500,
-            "appel_puissance_W": 700
+            "appel_puissance_W": 700,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 34,
             "nom": "Voiture electrique, 1 Twingo 22kWh",
             "consommation_W": 22000,
-            "appel_puissance_W": 25000
+            "appel_puissance_W": 25000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 35,
             "nom": "Chauffage d'appoint",
             "consommation_W": 2000,
-            "appel_puissance_W": 2500
+            "appel_puissance_W": 2500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 36,
             "nom": "Seche-linge (classe A+++)",
             "consommation_W": 1500,
-            "appel_puissance_W": 2000
+            "appel_puissance_W": 2000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 37,
             "nom": "Pompe a chaleur air-air maison 100m²",
             "consommation_W": 2500,
-            "appel_puissance_W": 3000
+            "appel_puissance_W": 3000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 38,
             "nom": "Voiture electrique, Capture 10kWh",
             "consommation_W": 10000,
-            "appel_puissance_W": 12000
+            "appel_puissance_W": 12000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 39,
             "nom": "Kit video surveillance, alarme",
             "consommation_W": 50,
-            "appel_puissance_W": 100
+            "appel_puissance_W": 100,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 40,
             "nom": "Ordinateur pour ecole",
             "consommation_W": 250,
-            "appel_puissance_W": 400
+            "appel_puissance_W": 400,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 41,
             "nom": "Pompe a chaleur air-air bureau 100m²",
             "consommation_W": 3000,
-            "appel_puissance_W": 3500
+            "appel_puissance_W": 3500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 42,
             "nom": "Pompe a chaleur air-air ecole 100m²",
             "consommation_W": 3500,
-            "appel_puissance_W": 4000
+            "appel_puissance_W": 4000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 43,
             "nom": "ecran d'ordinateur",
             "consommation_W": 50,
-            "appel_puissance_W": 100
+            "appel_puissance_W": 100,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 44,
             "nom": "Radio-reveil",
             "consommation_W": 10,
-            "appel_puissance_W": 20
+            "appel_puissance_W": 20,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 45,
             "nom": "Seche-serviette",
             "consommation_W": 500,
-            "appel_puissance_W": 1000
+            "appel_puissance_W": 1000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 46,
             "nom": "Chargeur de telephone",
             "consommation_W": 5,
-            "appel_puissance_W": 10
+            "appel_puissance_W": 10,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 47,
             "nom": "Box internet",
             "consommation_W": 15,
-            "appel_puissance_W": 30
+            "appel_puissance_W": 30,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 48,
             "nom": "Scie sous table",
             "consommation_W": 1800,
-            "appel_puissance_W": 2500
+            "appel_puissance_W": 2500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 49,
             "nom": "Scie a onglets",
             "consommation_W": 1500,
-            "appel_puissance_W": 2200
+            "appel_puissance_W": 2200,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 50,
             "nom": "Raboteuse",
             "consommation_W": 1200,
-            "appel_puissance_W": 1800
+            "appel_puissance_W": 1800,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 51,
             "nom": "Aspirateur de chantier",
             "consommation_W": 1400,
-            "appel_puissance_W": 2000
+            "appel_puissance_W": 2000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 52,
             "nom": "Vaporisateur laveur de sol",
             "consommation_W": 1000,
-            "appel_puissance_W": 1500
+            "appel_puissance_W": 1500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 53,
             "nom": "Robot aspirateur",
             "consommation_W": 50,
-            "appel_puissance_W": 100
+            "appel_puissance_W": 100,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         }
     ]
 }
