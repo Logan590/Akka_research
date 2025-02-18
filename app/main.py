@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Form, Request
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime, time, timedelta
@@ -8,12 +9,24 @@ from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 class Device(BaseModel):
     id: int
     nom: str
     consommation_W: int
     appel_puissance_W: int
 
+def time_to_minutes(time_str):
+    """ Convertit une heure sous forme HH:MM en minutes depuis minuit. """
+    if not time_str or ":" not in time_str:  # Vérifie si la valeur est vide ou incorrecte
+        raise ValueError(f"Format d'heure invalide : {time_str}")
+
+    try:
+        h, m = map(int, time_str.split(":"))
+        return h * 60 + m
+    except ValueError:
+        raise ValueError(f"Format d'heure invalide : {time_str}")
 
 try:
     with open("DevicesList.json", "r") as file:
@@ -37,13 +50,17 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    try:
-        with open("ProbabilityDuration.json", "r", encoding="utf-8") as file:
-            data = json.load(file)
-            activites = data["activites"]
-            return templates.TemplateResponse("index.html", {"request": request, "devices": devices_list, "activites": activites})
-    except FileNotFoundError:
-        return templates.TemplateResponse("index.html", {"request": request, "devices": devices_list})
+    # try:
+    #     with open("ProbabilityDuration.json", "r", encoding="utf-8") as file:
+    #         data = json.load(file)
+    #         activites = data["activites"]
+    #         return templates.TemplateResponse("index.html", {"request": request, "devices": devices_list, "activites": activites})
+    # except FileNotFoundError:
+    #     return templates.TemplateResponse("index.html", {"request": request, "devices": devices_list})
+    with open("ProbabilityDuration.json", "r", encoding="utf-8") as file:
+        data = json.load(file)
+        activites = data["activites"]
+        return templates.TemplateResponse("Set_device_list.html", {"request": request, "devices": devices_list})
     
 @app.get("/add_devices", response_class=HTMLResponse)
 async def index(request: Request):
@@ -52,6 +69,10 @@ async def index(request: Request):
         activites = data["activites"]
         return templates.TemplateResponse("Set_device_list.html", {"request": request, "devices": devices_list})
         
+
+
+
+
 @app.post("/save-devices")
 async def save_devices(request: Request, selected_devices: list[str] = Form(...)):  
     """
@@ -65,6 +86,10 @@ async def save_devices(request: Request, selected_devices: list[str] = Form(...)
         json.dump({"devices": selected_devices_list}, file, indent=4, ensure_ascii=False)
 
     return templates.TemplateResponse("Sleep_time.html", {"request": request, "devices": selected_devices_list})
+
+
+
+
 
 @app.post("/add_duration/")
 async def ajouter(
@@ -102,6 +127,7 @@ async def ajouter(
         json.dump(data, file, indent=4)
 
     return templates.TemplateResponse("index.html", {"request": request, "devices": device, "activites": data["activites"]})
+
 
 
 
@@ -155,6 +181,8 @@ async def ajouter(
     return templates.TemplateResponse("index.html", {"request": request, "devices": devices, "activites": activites})
 
 
+
+
 # Route pour télécharger le fichier JSON
 @app.get("/telecharger/")
 async def telecharger():
@@ -194,10 +222,7 @@ async def telecharger():
 
 
 
-def time_to_minutes(time_str):
-    """Convertit une heure 'HH:MM' en minutes depuis minuit."""
-    h, m = map(int, time_str.split(":"))
-    return h * 60 + m
+
 
 @app.post("/enregistrer_probabilites/")
 async def enregistrer_probabilites(request: Request):
@@ -206,8 +231,9 @@ async def enregistrer_probabilites(request: Request):
     # Récupération des horaires
     bedtime = time_to_minutes(form_data["bedtime"])
     getuptime = time_to_minutes(form_data["getuptime"])
-    home_start = time_to_minutes(form_data["home_start"])
-    home_end = time_to_minutes(form_data["home_end"])
+    home_start = [time_to_minutes(t) for t in form_data.getlist("home_start[]") if t.strip()]
+    home_end = [time_to_minutes(t) for t in form_data.getlist("home_end[]") if t.strip()]
+
 
     matrice = []
 
@@ -218,7 +244,7 @@ async def enregistrer_probabilites(request: Request):
         if bedtime <= minute < getuptime:
             prob_value = 0
         # Si la personne est chez elle -> probabilité = 1
-        elif home_start <= minute < home_end:
+        elif any(start <= minute < end for start, end in zip(home_start, home_end)):
             prob_value = 1
         else:
             prob_value = 0  # Par défaut, absent = 0
@@ -226,9 +252,9 @@ async def enregistrer_probabilites(request: Request):
         # Stocker la probabilité pour chaque appareil
         for appareil in devices:
             if prob_value == 1:
-                minute_data.append(appareil.proba_defaut)
+                minute_data.append(appareil["proba_defaut"])
             else:
-                minute_data.append(appareil.proba_off)
+                minute_data.append(appareil["proba_off"])
 
         # Format de l'heure
         matrice.append({f"{minute // 60:02d}h{minute % 60:02d}": minute_data})
@@ -237,6 +263,4 @@ async def enregistrer_probabilites(request: Request):
     with open("probabilites.json", "w") as file:
         json.dump(matrice, file, indent=4)
 
-    return JSONResponse(content={"message": "Probabilités enregistrées avec succès"})
-
-
+    return templates.TemplateResponse("Sleep_time.html", {"request": request})

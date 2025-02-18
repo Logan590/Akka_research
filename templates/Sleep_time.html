@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Gestion des devices</title>
 </head>
 <body>
@@ -19,14 +20,37 @@
         <br>
 
         <p>Sur quelles plages horaires êtes-vous à la maison aujourd'hui ?</p>
-        <label for="home_start">Début</label>
-        <input type="time" id="home_start" name="home_start">
-        <br>
-        <label for="home_end">Fin</label>
-        <input type="time" id="home_end" name="home_end">
-        <br>
+        <button id="toggleInputs">Ajouter une plage horaire</button>
+        
+        <div id="homeInputsContainer">
+            <div class="homeInputs">
+                <label for="home_start_1">Début</label>
+                <input type="time" id="home_start_1" name="home_start[]">
+                <label for="home_end_1">Fin</label>
+                <input type="time" id="home_end_1" name="home_end[]">
+            </div>
+        </div>
 
         <input type="submit" value="Enregistrer">
     </form>
+    <script>
+        document.getElementById("toggleInputs").addEventListener("click", function () {
+            const container = document.getElementById("homeInputsContainer");
+            const count = container.getElementsByClassName("homeInputs").length + 1;
+    
+            // Créer un nouvel élément div contenant les nouveaux inputs
+            const newInputs = document.createElement("div");
+            newInputs.classList.add("homeInputs");
+            newInputs.innerHTML = `
+                <label for="home_start_${count}">Début</label>
+                <input type="time" id="home_start_${count}" name="home_start[]">
+                <label for="home_end_${count}">Fin</label>
+                <input type="time" id="home_end_${count}" name="home_end[]">
+            `;
+    
+            // Ajouter les nouveaux inputs au conteneur
+            container.appendChild(newInputs);
+        });
+    </script>
 </body>
 </html>

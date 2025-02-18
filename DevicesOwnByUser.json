@@ -4,25 +4,25 @@
             "id": 1,
             "nom": "Refrigerateur",
             "consommation_W": 150,
-            "appel_puissance_W": 600
+            "appel_puissance_W": 600,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 2,
             "nom": "Congelateur",
             "consommation_W": 200,
-            "appel_puissance_W": 800
+            "appel_puissance_W": 800,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         },
         {
             "id": 3,
             "nom": "Lave-linge",
             "consommation_W": 500,
-            "appel_puissance_W": 2500
-        },
-        {
-            "id": 4,
-            "nom": "Lave-vaisselle",
-            "consommation_W": 1200,
-            "appel_puissance_W": 2200
+            "appel_puissance_W": 2500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
         }
     ]
 }
