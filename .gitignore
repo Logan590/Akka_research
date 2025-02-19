@@ -1,2 +1,4 @@
 env/
 Prédiction conso/
+DevicesOwnByUser.json
+probabilities.json
