@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Gestion des devices</title>
+</head>
+
+<body>
+<h1>Matrice de probabilité de mise en service</h1>
+<form method="post" action="/enregistrer_matrice/">
+    <table>
+        <thead>
+            <tr>
+                <th>Plage Horaire</th>
+                {% for appareil in devices %}
+                    <th>{{ appareil.nom }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in probabilites %}
+                {% for plage_horaire, proba in item.items() %}
+                    <tr>
+                        <td>{{ plage_horaire }}</td>
+                        {% for appareil in devices %}
+                            <td>
+                                <input type="number" name="proba_{{ plage_horaire }}_{{ appareil.id }}" step="0.001" min="0" max="1" value="{{ proba[loop.index - 1] }}">
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit">Enregistrer</button>
+</form>
+</body>
+</html>

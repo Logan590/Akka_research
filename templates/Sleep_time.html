@@ -14,12 +14,12 @@
                 <p>Durant cette période, un ensemble d'équipements ne seront pas utilisés.</p>
                 <p>Quelles sont vos habitudes de sommeil ?</p>
                 <div class="input-group">
-                    <label for="bedtime">Heure de coucher</label>
-                    <input type="time" id="bedtime" name="bedtime">
-                </div>
-                <div class="input-group">
                     <label for="getuptime">Heure de lever</label>
                     <input type="time" id="getuptime" name="getuptime">
+                </div>
+                <div class="input-group">
+                    <label for="bedtime">Heure de coucher</label>
+                    <input type="time" id="bedtime" name="bedtime">
                 </div>
             </div>
     
@@ -40,10 +40,11 @@
                 </div>
             </div>
         </div>
+        <div class="bottom-section">
+            <input type="submit" value="Enregistrer">
+        </div>
     </form>
-    <div class="bottom-section">
-        <input type="submit" value="Enregistrer">
-    </div>
+
     <script>
         document.getElementById("toggleInputs").addEventListener("click", function () {
             const container = document.getElementById("homeInputsContainer");
@@ -53,14 +54,37 @@
             const newInputs = document.createElement("div");
             newInputs.classList.add("homeInputs");
             newInputs.innerHTML = `
+                <div class="input-group">
                 <label for="home_start_${count}">Début</label>
                 <input type="time" id="home_start_${count}" name="home_start[]">
+                </div>
+                <div class="input-group">
                 <label for="home_end_${count}">Fin</label>
                 <input type="time" id="home_end_${count}" name="home_end[]">
+                </div>
             `;
     
             // Ajouter les nouveaux inputs au conteneur
             container.appendChild(newInputs);
+        });
+
+            // Validation avant envoi du formulaire
+        document.querySelector("form").addEventListener("submit", function (e) {
+            const starts = document.querySelectorAll("input[name='home_start[]']");
+            const ends = document.querySelectorAll("input[name='home_end[]']");
+            
+            // Parcours de toutes les plages horaires pour validation
+            for (let i = 0; i < starts.length; i++) {
+                const start = starts[i].value;
+                const end = ends[i].value;
+
+                // Vérifier que l'heure de début est plus petite que l'heure de fin
+                if (start >= end) {
+                    alert("L'heure de début doit être inférieure à l'heure de fin pour la plage horaire " + (i + 1));
+                    e.preventDefault();  // Empêcher l'envoi du formulaire
+                    return;
+                }
+            }
         });
     </script>
 </body>
