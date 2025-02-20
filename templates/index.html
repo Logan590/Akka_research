@@ -1,126 +1,16 @@
 <!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
-    <title>Gestion des devices</title>
-</head>
+{% include "head.html" %}
 
 <body>
-    <h1>Ajouter une dur&eacute;e d'activit&eacute; d'un appareil</h1>
-    <form action="/save-devices" method="post">
-        <p>Quels appareils de la liste suivante avez vous ?</p>
-        {% for device in devices %}
-        <input type="checkbox" id="device_{{ device.id }}" name="selected_devices" value="{{ device.id }}">
-        <label for="device_{{ device.id }}">{{ device.nom }}</label><br>
-        {% endfor %}
-        <input type="submit" value="Enregistrer">
-    </form>
-    <form action="/add_duration/" method="post">
-        <label for="device_id">Choisir un device :</label>
-        <select name="device_id" required>
-            {% for device in devices %}
-            <option value="{{ device.id }}">{{ device.nom }}</option>
-            {% endfor %}
-        </select>
-        <br><br>
-
-        <label for="inUseDuration">Durée d'utilisation :</label>
-        <input type="time" name="inUseDuration" required>
-        <br><br>
-
-        <label for="probability">Probabilit&eacute; :</label>
-        <input type="float" name="probability" required>
-        <br><br>
-
-        <button type="submit">Ajouter</button>
-    </form>
-
-    <!-- <h1>Ajouter des entrées récurrentes de fonctionnement d'device</h1>
-
-    <form action="/ajouter_rec/" method="post">
-        <label for="device_id">Choisir un device :</label>
-        <select name="device_id" required>
-            {% for device in devices %}
-            <option value="{{ device.id }}">{{ device.nom }}</option>
-            {% endfor %}
-        </select>
-        <br><br>
-
-        <label for="heure_debut">Heure de début :</label>
-        <input type="time" name="heure_debut" required>
-        <br><br>
-
-        <label for="duree">Durée (minutes) :</label>
-        <input type="number" name="duree" min="1" required>
-        <br><br>
-
-        <label for="recur">Nombre de récurrences :</label>
-        <input type="number" name="recur" min="1" value="1" required>
-        <br><br>
-
-        <label for="intervalle">Intervalle entre récurrences (minutes) :</label>
-        <input type="number" name="intervalle" min="1" value="0" required>
-        <br><br>
-
-        <button type="submit">Ajouter</button>
-    </form> -->
-
-    <h1>Liste des dur&eacute;e d'activit&eacute; des appareils</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nom de l'appareil</th>
-                <th>Consommation (W)</th>
-                <th>Appel de puissance (W)</th>
-                <th>inUseDuration</th>
-                <th>probability</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for activite in activites %}
-            <tr>
-                <td>{{ activite.device.nom }}</td>
-                <td>{{ activite.device.consommation_W }}</td>
-                <td>{{ activite.device.appel_puissance_W }}</td>
-                <td>{{ activite.inUseDuration }}</td>
-                <td>{{ activite.probability }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-       
-    </table>
-    <h1>Matrice de probabilit&eacute; de mise en service</h1>
-    <form method="post" action="/enregistrer_probabilites/">
-        <table>
-            <thead>
-                <tr>
-                    <th>Plage Horaire</th>
-                    {% for appareil in devices %}
-                        <th>{{ appareil.nom }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for minute in range(0, 1440, 10) %}  <!-- Plages horaires toutes les 10 minutes -->
-                    <tr>
-                        <td>{{ "{:02d}h{:02d}".format(minute // 60, minute % 60) }}</td>  <!-- Formater l'heure -->
-                        {% for appareil in devices %}
-                            <td>
-                                <input type="number" name="proba_{{ minute }}_{{ appareil.id }}" step="0.001" min="0" max="1" value="0">
-                            </td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <button type="submit">Enregistrer</button>
-    </form>
-    
-    <br>
-    <!-- <a href="/telecharger/">Télécharger le fichier JSON</a> -->
+    <!-- {% include "menu.html" %} -->
+    <div class="table-container">
+        <h1>Menu Principal</h1>
+        <div class="menu-container">
+            <a href="/" class="menu-button">Accueil</a>
+            <a href="/add_duration" class="menu-button">Ajouter Durée</a>
+            <a href="/add_devices" class="menu-button">Ajouter Appareils</a>
+        </div>
+    </div>
 </body>
 
 </html>

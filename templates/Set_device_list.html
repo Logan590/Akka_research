@@ -1,14 +1,8 @@
 <!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
-    <title>Gestion des devices</title>
-</head>
-
+{% include "head.html" %}
 <body>
+    {% include "menu.html" %}
+    <div class="table-container">
     <h1>Ajouter un appareil à la liste des appareils de l'utilisateur</h1>
     <div class="question"> 
         <p><strong>Quels appareils de la liste suivante avez vous ?</strong></p>
@@ -24,6 +18,7 @@
         </div>
         <input type="submit" value="Enregistrer">
     </form>
+    </div>
 </body>
 
 </html>

@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
-    <title>Gestion des devices</title>
-</head>
+{% include "head.html" %}
 <body>
+    {% include "menu.html" %}
+    <div class="table-container">
     <h1>Ajouter une habitude de sommeil</h1>    
     <form action="/enregistrer_probabilites/" method="post">
         <div class="form-container">
@@ -87,5 +83,6 @@
             }
         });
     </script>
+    </div>
 </body>
 </html>
