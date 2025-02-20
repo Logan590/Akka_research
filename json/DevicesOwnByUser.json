@@ -1,0 +1,52 @@
+{
+    "devices": [
+        {
+            "id": 48,
+            "nom": "Scie sous table",
+            "consommation_W": 1800,
+            "appel_puissance_W": 2500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
+        },
+        {
+            "id": 49,
+            "nom": "Scie a onglets",
+            "consommation_W": 1500,
+            "appel_puissance_W": 2200,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
+        },
+        {
+            "id": 50,
+            "nom": "Raboteuse",
+            "consommation_W": 1200,
+            "appel_puissance_W": 1800,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
+        },
+        {
+            "id": 51,
+            "nom": "Aspirateur de chantier",
+            "consommation_W": 1400,
+            "appel_puissance_W": 2000,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
+        },
+        {
+            "id": 52,
+            "nom": "Vaporisateur laveur de sol",
+            "consommation_W": 1000,
+            "appel_puissance_W": 1500,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
+        },
+        {
+            "id": 53,
+            "nom": "Robot aspirateur",
+            "consommation_W": 50,
+            "appel_puissance_W": 100,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
+        }
+    ]
+}

@@ -19,7 +19,7 @@ def minutes_to_time(minutes):
 
 def load_devices():
     try:
-        with open("DevicesList.json", "r") as file:
+        with open("json/DevicesList.json", "r") as file:
             data = json.load(file)
             devices_list = data.get("devices",[])
             return devices_list

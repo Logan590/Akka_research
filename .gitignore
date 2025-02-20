@@ -1,4 +1,6 @@
 env/
 Prédiction conso/
-DevicesOwnByUser.json
-probabilities.json
+# json/
+# json/Matrix.json
+# json/DevicesOwnByUser.json
+# json/DeviceDurations.json

@@ -28,7 +28,7 @@ async def det_device_list(request: Request):
 @app.get("/add_duration", response_class=HTMLResponse)
 async def set_duration_list(request: Request):
     try:
-        with open("DevicesOwnByUser.json", "r") as file:
+        with open("json/DevicesOwnByUser.json", "r") as file:
             data = json.load(file)
             devices_own = data.get("devices",[])
             return templates.TemplateResponse("Durations.html", {"request": request, "devices": devices_own})
@@ -45,7 +45,7 @@ async def save_devices(request: Request, selected_devices: list[str] = Form(...)
     selected_devices_list = [device for device in devices_list if str(device["id"]) in selected_devices]
 
     # Sauvegarder dans DevicesOwnByUser.json
-    with open("DevicesOwnByUser.json", "w", encoding="utf-8") as file:
+    with open("json/DevicesOwnByUser.json", "w", encoding="utf-8") as file:
         json.dump({"devices": selected_devices_list}, file, indent=4, ensure_ascii=False)
 
     return templates.TemplateResponse("Sleep_time.html", {"request": request, "devices": selected_devices_list})
@@ -63,7 +63,7 @@ async def enregistrer_probabilites(request: Request):
     matrice = []
 
     try:
-        with open("DevicesOwnByUser.json", "r") as file:
+        with open("json/DevicesOwnByUser.json", "r") as file:
             data = json.load(file)
             devices_own = data.get("devices",[])
     except FileNotFoundError:
@@ -89,7 +89,7 @@ async def enregistrer_probabilites(request: Request):
         matrice.append({f"{minute // 60:02d}h{minute % 60:02d}": minute_data})
 
     # Sauvegarde dans un fichier JSON
-    with open("Matrix.json", "w") as file:
+    with open("json/Matrix.json", "w") as file:
         json.dump(matrice, file, indent=4)
 
 
@@ -107,7 +107,7 @@ async def enregistrer_probabilites(request: Request):
     matrice = []
 
     try:
-        with open("DevicesOwnByUser.json", "r") as file:
+        with open("json/DevicesOwnByUser.json", "r") as file:
             data = json.load(file)
             devices_own = data.get("devices",[])
     except FileNotFoundError:
@@ -128,7 +128,7 @@ async def enregistrer_probabilites(request: Request):
         matrice.append({f"{minute // 60:02d}h{minute % 60:02d}": minute_data})
 
     # Sauvegarde dans un fichier JSON
-    with open("Matrix.json", "w") as file:
+    with open("json/Matrix.json", "w") as file:
         json.dump(matrice, file, indent=4)
 
     return templates.TemplateResponse("matrice.html", {"request": request, "probabilites":matrice, "devices":devices_own})
@@ -153,7 +153,7 @@ async def add_duration(request: Request):
             })
 
     # Sauvegarde en fichier JSON (facultatif)
-    with open("DeviceDurations.json", "w") as f:
+    with open("json/DeviceDurations.json", "w") as f:
         json.dump(result, f, indent=4)
 
     return {"message": "Données enregistrées", "data": result}
