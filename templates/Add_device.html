@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Appareils</title>
-    <link rel="stylesheet" href="/static/styles.css">
-</head>
+{% include "head.html" %}
 <body>
+    {% include "menu.html" %}
     <h1>Gestion des Appareils</h1>
 
     <h2>Liste des appareils</h2>
+    <div class="table-container">
     <table>
         <thead>
             <tr>
@@ -57,5 +53,7 @@
 
         <button type="submit">Ajouter / Modifier</button>
     </form>
+</div>
 </body>
 </html>
+

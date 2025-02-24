@@ -1,37 +1,22 @@
 [
     {
         "appareil_id": "1",
-        "duration_min": 0.0,
-        "duration_max": 0.0
+        "duration_min": 1.0,
+        "duration_max": 30.0
     },
     {
         "appareil_id": "2",
-        "duration_min": 0.0,
-        "duration_max": 0.0
+        "duration_min": 5.0,
+        "duration_max": 10.0
     },
     {
         "appareil_id": "3",
-        "duration_min": 0.0,
-        "duration_max": 0.0
+        "duration_min": 60.0,
+        "duration_max": 180.0
     },
     {
         "appareil_id": "4",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "5",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "6",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "7",
-        "duration_min": 0.0,
-        "duration_max": 0.0
+        "duration_min": 120.0,
+        "duration_max": 180.0
     }
 ]

@@ -24,6 +24,10 @@ async def det_device_list(request: Request):
     devices_list = f.load_devices()
     return templates.TemplateResponse("Set_device_list.html", {"request": request, "devices": devices_list})
 
+@app.get("/add_device_list", response_class=HTMLResponse)
+async def det_device_list(request: Request):
+    devices_list = f.load_devices()
+    return templates.TemplateResponse("Add_device.html", {"request": request, "devices": devices_list})
 
 @app.get("/add_duration", response_class=HTMLResponse)
 async def set_duration_list(request: Request):
@@ -49,6 +53,10 @@ async def show_matrix(request: Request):
     except FileNotFoundError:
         print("Vous devez d'abord renseigner une matrice de probabilité")
     return templates.TemplateResponse("matrice.html", {"request": request, "probabilites":matrice, "devices": devices_own})
+
+@app.get("/gen_consumption", response_class=HTMLResponse)
+async def gen_consumption(request: Request):
+    f.generate_consumption()
 
 ##########################################################################################################
 #Routes POST

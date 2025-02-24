@@ -1,50 +1,34 @@
 {
     "devices": [
         {
-            "id": 48,
-            "nom": "Scie sous table",
-            "consommation_W": 1800,
+            "id": 1,
+            "nom": "Refrigerateur",
+            "consommation_W": 150,
+            "appel_puissance_W": 600,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
+        },
+        {
+            "id": 2,
+            "nom": "Congelateur",
+            "consommation_W": 200,
+            "appel_puissance_W": 800,
+            "proba_defaut": 0.1,
+            "proba_off": 0.0
+        },
+        {
+            "id": 3,
+            "nom": "Lave-linge",
+            "consommation_W": 500,
             "appel_puissance_W": 2500,
             "proba_defaut": 0.1,
             "proba_off": 0.0
         },
         {
-            "id": 49,
-            "nom": "Scie a onglets",
-            "consommation_W": 1500,
-            "appel_puissance_W": 2200,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 50,
-            "nom": "Raboteuse",
+            "id": 4,
+            "nom": "Lave-vaisselle",
             "consommation_W": 1200,
-            "appel_puissance_W": 1800,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 51,
-            "nom": "Aspirateur de chantier",
-            "consommation_W": 1400,
-            "appel_puissance_W": 2000,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 52,
-            "nom": "Vaporisateur laveur de sol",
-            "consommation_W": 1000,
-            "appel_puissance_W": 1500,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 53,
-            "nom": "Robot aspirateur",
-            "consommation_W": 50,
-            "appel_puissance_W": 100,
+            "appel_puissance_W": 2200,
             "proba_defaut": 0.1,
             "proba_off": 0.0
         }
