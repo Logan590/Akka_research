@@ -6,6 +6,7 @@ import json
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from app import functions as f
+import os
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -57,6 +58,21 @@ async def show_matrix(request: Request):
 @app.get("/gen_consumption", response_class=HTMLResponse)
 async def gen_consumption(request: Request):
     f.generate_multiple_files()
+    with open("templates/consumption.html", "r", encoding="utf-8") as fi:
+        html_content = fi.read()
+    return HTMLResponse(content=html_content)
+
+@app.get("/api/consommation")
+async def get_consumption():
+    data = []
+    folder = "./output"  # 📂 Dossier où sont les fichiers JSON
+
+    for i in range(1, 21):  # 🔄 Lire tous les fichiers consommation_1.json → consommation_20.json
+        filename = os.path.join(folder, f"consommation_{i}.json")
+        if os.path.exists(filename):
+            data.append(f.load_json(filename))
+
+    return JSONResponse(content={"datasets": data})
     
 
 ##########################################################################################################
