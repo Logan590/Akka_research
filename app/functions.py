@@ -53,7 +53,7 @@ def generate_consumption():
     devices = load_json("json/DevicesOwnByUser.json")["devices"]
     durations = load_json("json/DeviceDurations.json")
 
-    consommation = []  # Liste pour stocker la consommation par tranche horaire
+    consommation = []  # Stocke la consommation par minute
 
     # Associer les appareils par ID
     appareils_dict = {str(d["id"]): d for d in devices}
@@ -61,29 +61,32 @@ def generate_consumption():
     # Dictionnaire pour suivre le temps restant de fonctionnement des appareils
     appareil_en_marche = {str(d["id"]): 0 for d in devices}
 
-    for time_block in probability_matrix:
-        time_key = list(time_block.keys())[0]  # Exemple : "00h00"
-        probabilities = time_block[time_key]
+    # Générer la liste des minutes de la journée (00:00 → 23:59)
+    for heure in range(24):
+        for minute in range(60):
+            time_key = f"{heure:02d}:{minute:02d}"  # Format HH:MM
 
-        # Initialiser la consommation pour cette tranche horaire
-        consommation_entry = {time_key: [0.0] * len(devices)}
+            # Trouver la plage de 10 min correspondante dans `probability_matrix`
+            block_index = (heure * 60 + minute) // 10
+            block_key = list(probability_matrix[block_index].keys())[0]
+            probabilities = probability_matrix[block_index][block_key]
 
-        for i, device_id in enumerate(appareils_dict.keys()):
-            # Vérifier si l'appareil est encore en fonctionnement
-            if appareil_en_marche[device_id] > 0:
-                consommation_entry[time_key][i] = appareils_dict[device_id]["consommation_W"]
-                appareil_en_marche[device_id] -= 10  # Réduire le temps restant (en minutes)
-            else:
-                # Vérifier si l'appareil se déclenche selon la probabilité
-                if random.random() < probabilities[i]:
-                    min_duree, max_duree = get_durations(device_id, durations)
-                    duree = random.randint(int(min_duree), int(max_duree))  # Assurer des entiers
-                    appareil_en_marche[device_id] = duree  # L'appareil reste allumé
+            consommation_entry = {time_key: [0.0] * len(devices)}
+
+            for i, device_id in enumerate(appareils_dict.keys()):
+                # Vérifier si l'appareil est encore en fonctionnement
+                if appareil_en_marche[device_id] > 0:
                     consommation_entry[time_key][i] = appareils_dict[device_id]["consommation_W"]
+                    appareil_en_marche[device_id] -= 1  # 🔹 Réduire le temps restant de 1 minute
+                else:
+                    # Vérifier si l'appareil se déclenche selon la probabilité
+                    if random.random() < probabilities[i]:  
+                        min_duree, max_duree = get_durations(device_id, durations)
+                        duree = random.randint(int(min_duree), int(max_duree))
+                        appareil_en_marche[device_id] = duree  # 🔹 Fixer durée en minutes
+                        consommation_entry[time_key][i] = appareils_dict[device_id]["consommation_W"]
 
-        consommation.append(consommation_entry)
-
-    # save_json("json/Consumption.json", consommation)
+            consommation.append(consommation_entry)
 
     return consommation
 

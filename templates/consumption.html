@@ -8,42 +8,99 @@
 </head>
 <body>
     <h1>Consommation Électrique</h1>
-    <div id="chart"></div>
-
+    <div id="charts"></div>  <!-- Conteneur pour tous les graphiques -->
+    <h1>Consommation Électrique Cumulée</h1>
+    <div id="combined_chart"></div>
+    
     <script>
         async function loadConsumption() {
             const response = await fetch("/api/consommation");
             const data = await response.json();
             const datasets = data.datasets;
+            const deviceNames = data.deviceNames;  // Noms des appareils
 
-            let timeLabels = [];
-            let traces = [];
+            const chartsContainer = document.getElementById("charts");
 
-            datasets.forEach((dataset, index) => {
-                let yValues = [];
+            datasets.forEach((dataset, fileIndex) => {
+                let timeLabels = [];
+                let traces = [];
+
+                // Initialiser une liste de valeurs pour chaque appareil
+                let deviceData = Array(deviceNames.length).fill().map(() => []);
+
                 dataset.forEach((entry, i) => {
                     let time = Object.keys(entry)[0];
                     let values = Object.values(entry)[0];
+
+                    if (i === 0) timeLabels = dataset.map(e => Object.keys(e)[0]); // Extraire les timestamps
                     
-                    if (index === 0) {
-                        timeLabels.push(time);
-                    }
-                    
-                    yValues.push(values.reduce((a, b) => a + b, 0)); // Somme des consommations
+                    values.forEach((value, deviceIndex) => {
+                        deviceData[deviceIndex].push(value);  // Ajouter la consommation de l'appareil
+                    });
                 });
 
-                traces.push({
-                    x: timeLabels,
-                    y: yValues,
-                    mode: "lines",
-                    name: `Simulation ${index + 1}`
+                // Créer une courbe par appareil
+                deviceData.forEach((yValues, deviceIndex) => {
+                    traces.push({
+                        x: timeLabels,
+                        y: yValues,
+                        mode: "lines",
+                        name: deviceNames[deviceIndex] || `Appareil ${deviceIndex + 1}`
+                    });
+                });
+
+                // Ajouter un nouveau graphique pour ce fichier
+                const chartDiv = document.createElement("div");
+                chartDiv.id = `chart-${fileIndex}`;
+                chartsContainer.appendChild(chartDiv);
+
+                Plotly.newPlot(chartDiv.id, traces, { 
+                    title: `Consommation - Fichier ${fileIndex + 1}` 
                 });
             });
-
-            Plotly.newPlot("chart", traces, { title: "Courbes de Consommation" });
         }
 
         loadConsumption();
     </script>
+    <script>
+    async function loadConsumption_cum() {
+        const response = await fetch("/api/consommation");
+        const data = await response.json();
+        const datasets = data.datasets;
+
+        let timeLabels = [];
+        let traces = [];
+
+        datasets.forEach((dataset, index) => {
+            let yValues = [];
+            let localTimeLabels = [];
+
+            dataset.forEach((entry, i) => {
+                let time = Object.keys(entry)[0];
+                let values = Object.values(entry)[0];
+
+                if (index === 0) {
+                    timeLabels.push(time);
+                }
+
+                localTimeLabels.push(time);
+                yValues.push(values.reduce((a, b) => a + b, 0)); // Total par simulation
+            });
+
+            traces.push({
+                x: localTimeLabels,
+                y: yValues,
+                mode: "lines",
+                name: `Simulation ${index + 1}`
+            });
+        });
+
+        Plotly.newPlot("combined_chart", traces, {
+            title: "Comparaison des consommations des simulations"
+        });
+    }
+
+    loadConsumption_cum();
+</script>
 </body>
 </html>

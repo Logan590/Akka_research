@@ -65,15 +65,18 @@ async def gen_consumption(request: Request):
 @app.get("/api/consommation")
 async def get_consumption():
     data = []
-    folder = "./output"  # 📂 Dossier où sont les fichiers JSON
+    folder = "./output"  # 📂 Dossier contenant les fichiers JSON
 
-    for i in range(1, 21):  # 🔄 Lire tous les fichiers consommation_1.json → consommation_20.json
+    for i in range(1, 21):  # 🔄 Lire consommation_1.json → consommation_20.json
         filename = os.path.join(folder, f"consommation_{i}.json")
         if os.path.exists(filename):
             data.append(f.load_json(filename))
 
-    return JSONResponse(content={"datasets": data})
-    
+    # 🔍 Récupérer les noms des appareils depuis DevicesOwnByUser.json
+    devices_info = f.load_json("json/DevicesOwnByUser.json")  # Charger les appareils
+    device_names = [device["nom"] for device in devices_info["devices"]]
+
+    return JSONResponse(content={"datasets": data, "deviceNames": device_names})
 
 ##########################################################################################################
 #Routes POST
