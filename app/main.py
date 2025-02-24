@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from typing import List, Optional
 from datetime import datetime, time, timedelta
 import json
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from app import functions as f
 
@@ -34,6 +34,21 @@ async def set_duration_list(request: Request):
             return templates.TemplateResponse("Durations.html", {"request": request, "devices": devices_own})
     except FileNotFoundError:
         print("Vous devez d'abord renseigner une liste d'appareils")
+
+@app.get("/show_matrix", response_class=HTMLResponse)
+async def show_matrix(request: Request):
+    try:
+        with open("json/DevicesOwnByUser.json", "r") as file:
+            data = json.load(file)
+            devices_own = data.get("devices",[])
+    except FileNotFoundError:
+        print("Vous devez d'abord renseigner une liste d'appareils")
+    try:
+        with open("json/matrix.json", "r") as file:
+            matrice = json.load(file)
+    except FileNotFoundError:
+        print("Vous devez d'abord renseigner une matrice de probabilité")
+    return templates.TemplateResponse("matrice.html", {"request": request, "probabilites":matrice, "devices": devices_own})
 
 ##########################################################################################################
 #Routes POST
@@ -157,3 +172,36 @@ async def add_duration(request: Request):
         json.dump(result, f, indent=4)
 
     return {"message": "Données enregistrées", "data": result}
+
+
+
+@app.post("/add_device_list/")
+def add_device(
+    id: int = Form(...),
+    nom: str = Form(...),
+    consommation_W: int = Form(...),
+    appel_puissance_W: int = Form(...),
+    proba_defaut: float = Form(...),
+    proba_off: float = Form(...)
+):
+    data = f.load_devices()
+    device = {
+        "id": id,
+        "nom": nom,
+        "consommation_W": consommation_W,
+        "appel_puissance_W": appel_puissance_W,
+        "proba_defaut": proba_defaut,
+        "proba_off": proba_off
+    }
+
+    # Vérifier si l'appareil existe déjà
+    for i, d in enumerate(data["devices"]):
+        if d["id"] == id:
+            data["devices"][i] = device
+            save_devices(data)
+            return RedirectResponse("/", status_code=303)
+
+    # Ajouter un nouvel appareil
+    data["devices"].append(device)
+    save_devices(data)
+    return RedirectResponse("/", status_code=303)

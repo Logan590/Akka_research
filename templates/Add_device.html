@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Appareils</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Gestion des Appareils</h1>
+
+    <h2>Liste des appareils</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Conso (W)</th>
+                <th>Appel (W)</th>
+                <th>Proba Défaut</th>
+                <th>Proba Off</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for device in devices %}
+            <tr>
+                <td>{{ device.id }}</td>
+                <td>{{ device.nom }}</td>
+                <td>{{ device.consommation_W }}</td>
+                <td>{{ device.appel_puissance_W }}</td>
+                <td>{{ device.proba_defaut }}</td>
+                <td>{{ device.proba_off }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Ajouter / Modifier un appareil</h2>
+    <form action="/add_device/" method="post">
+        <label for="id">ID :</label>
+        <input type="number" id="id" name="id" required>
+
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" required>
+
+        <label for="consommation_W">Consommation (W) :</label>
+        <input type="number" id="consommation_W" name="consommation_W" required>
+
+        <label for="appel_puissance_W">Appel Puissance (W) :</label>
+        <input type="number" id="appel_puissance_W" name="appel_puissance_W" required>
+
+        <label for="proba_defaut">Proba Défaut :</label>
+        <input type="number" step="0.01" id="proba_defaut" name="proba_defaut" required>
+
+        <label for="proba_off">Proba Off :</label>
+        <input type="number" step="0.01" id="proba_off" name="proba_off" required>
+
+        <button type="submit">Ajouter / Modifier</button>
+    </form>
+</body>
+</html>
