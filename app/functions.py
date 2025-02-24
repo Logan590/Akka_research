@@ -1,5 +1,6 @@
 import json
 import random
+import os
 
 def time_to_minutes(time_str):
     #Convertit une heure sous forme HH:MM en minutes depuis minuit.
@@ -76,13 +77,21 @@ def generate_consumption():
                 # Vérifier si l'appareil se déclenche selon la probabilité
                 if random.random() < probabilities[i]:
                     min_duree, max_duree = get_durations(device_id, durations)
-                    duree = random.randint(min_duree, max_duree)  # Générer une durée aléatoire
+                    duree = random.randint(int(min_duree), int(max_duree))  # Assurer des entiers
                     appareil_en_marche[device_id] = duree  # L'appareil reste allumé
                     consommation_entry[time_key][i] = appareils_dict[device_id]["consommation_W"]
 
         consommation.append(consommation_entry)
 
-    save_json("json/Consumption.json", consommation)
+    # save_json("json/Consumption.json", consommation)
 
-    print("✅ Fichier consommation.json généré avec succès !")
+    return consommation
 
+# 📌 Générer 20 fichiers différents
+def generate_multiple_files():
+    for i in range(1, 21):
+        consommation = generate_consumption()
+        if not os.path.exists("output"):
+            os.makedirs("output")
+        save_json(f"output/consommation_{i}.json", consommation)
+        print(f"✅ Fichier consommation_{i}.json généré.")

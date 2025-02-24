@@ -56,7 +56,8 @@ async def show_matrix(request: Request):
 
 @app.get("/gen_consumption", response_class=HTMLResponse)
 async def gen_consumption(request: Request):
-    f.generate_consumption()
+    f.generate_multiple_files()
+    
 
 ##########################################################################################################
 #Routes POST
