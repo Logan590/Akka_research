@@ -17,7 +17,7 @@ templates = Jinja2Templates(directory="templates")
 ##########################################################################################################
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+     return RedirectResponse("/add_devices", status_code=303)
     
 
 @app.get("/add_devices", response_class=HTMLResponse)
@@ -136,8 +136,8 @@ async def enregistrer_probabilites(request: Request):
         json.dump(matrice, file, indent=4)
 
 
-    
-    return templates.TemplateResponse("matrice.html", {"request": request, "probabilites":matrice, "devices": devices_own})
+    return RedirectResponse("/add_duration", status_code=303)
+    # return templates.TemplateResponse("matrice.html", {"request": request, "probabilites":matrice, "devices": devices_own})
 
 
 
@@ -199,7 +199,8 @@ async def add_duration(request: Request):
     with open("json/DeviceDurations.json", "w") as f:
         json.dump(result, f, indent=4)
 
-    return {"message": "Données enregistrées", "data": result}
+    # return {"message": "Données enregistrées", "data": result}
+    return RedirectResponse("/show_matrix", status_code=303)
 
 
 
@@ -233,3 +234,11 @@ def add_device(
     data["devices"].append(device)
     save_devices(data)
     return RedirectResponse("/", status_code=303)
+
+
+@app.post("/gen_consumption/")
+async def gen_consumption(request: Request):
+    f.generate_multiple_files()
+    with open("templates/consumption.html", "r", encoding="utf-8") as fi:
+        html_content = fi.read()
+    return HTMLResponse(content=html_content)
