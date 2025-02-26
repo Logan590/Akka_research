@@ -16,7 +16,7 @@
     </div>
     <form action="/save-devices" method="post">
         <div class = "container_device">
-            {% for device in devices %}
+            {% for device in devices | sort(attribute='nom') %}
             <div class="device">
                 <label for="device_{{ device.id }}">{{ device.nom }}</label>
                 <input type="checkbox" id="device_{{ device.id }}" name="selected_devices" value="{{ device.id }}">
