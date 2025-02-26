@@ -1,15 +1,57 @@
-
 :root {
-    --bg-color: #181a1b;
+    --bg-color: #001F33;
+    --form-color: #012f4e;
     --text-color: #e0e0e0;
-    --primary-color: #1e90ff;
+    --primary-color: #FFB81B;
     --secondary-color: #00bfff;
+    --third-color:#ffc64a;
     --border-color: #444;
     --input-bg: #222;
     --input-border: #666;
     --table-header-bg: #1e90ff;
     --table-header-text: #fff;
-    --table-row-bg: #252525;
+    --table-row-bg: #01263f;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center; /* Centre le contenu du menu */
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+}
+
+/* Container for navigation items */
+.nav-container {
+    display: flex;
+    width: 100%;
+}
+
+
+nav{
+    justify-content: center;
+    /* padding: 10px 0;  */
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+
+}
+
+/* .main-nav {
+    background-color: #262626;
+} */
+
+nav a {
+    color: var(--bg-color);
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    margin-left: 10px;
+}
+
+nav a:hover {
+    background-color: var(--third-color);
 }
 
 
@@ -19,7 +61,6 @@
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
 }
-
 
 body {
     background-color: var(--bg-color);
@@ -33,16 +74,19 @@ body {
     min-height: 100vh;
 }
 
-
 .container {
     max-width: 900px;
     padding: 30px;
-    background: #1f1f1f;
+    background: #001F33;
     border-radius: 12px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+    overflow: hidden;
 }
-
 
 h1, h2 {
     text-align: center;
@@ -51,10 +95,9 @@ h1, h2 {
     color: var(--primary-color);
 }
 
-
 button, input[type="submit"] {
     background: var(--primary-color);
-    color: white;
+    color: var(--bg-color);;
     border: none;
     padding: 14px 24px;
     margin: 15px 0;
@@ -67,19 +110,20 @@ button, input[type="submit"] {
 }
 
 button:hover, input[type="submit"]:hover {
-    background: var(--secondary-color);
+    background: var(--third-color);
 }
 
-
 form {
-    background: #2a2a2a;
+    background: var(--form-color);
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-    margin-bottom: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 100%;
 }
-
-
 
 input, select, textarea {
     padding: 12px;
@@ -95,12 +139,20 @@ input:focus, select:focus, textarea:focus {
     outline: none;
 }
 
+.table-container {
+    flex: 1;
+    overflow-y: auto;
+    width: 100%;
+    position: relative;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     border-radius: 8px;
     overflow: hidden;
+    height: 100%;
 }
 
 thead {
@@ -133,14 +185,15 @@ tbody tr:nth-child(even) {
 }
 
 .question{
+    text-align: center;
     padding-bottom: 20px;
 }
 
 .container_device {
-    height: 100vh;
+    height: 70vh;
     overflow-y: auto;
     padding: 20px;
-    background: var(--bg-color);
+    background: var(--form-color);
     box-sizing: border-box;
 }
 
@@ -158,7 +211,6 @@ tbody tr:nth-child(even) {
     padding: 20px;
     border-radius: 8px;
 }
-
 
 .bottom-section {
     text-align: center;
@@ -203,7 +255,6 @@ tbody tr:nth-child(even) {
     margin-bottom: 15px;
 }
 
-
 @media (max-width: 600px) {
     .container {
         padding: 20px;
@@ -212,6 +263,3 @@ tbody tr:nth-child(even) {
         width: 100%;
     }
 }
-
- 
-

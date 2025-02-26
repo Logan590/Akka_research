@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 {% include "head.html" %}
 <body>
-    {% include "menu.html" %}
+    <nav class="main-nav">
+        <!-- <a href="/add_duration" class="menu-button">Ajouter une durée d'utilisation</a> -->
+        <a href="/add_devices" class="menu-button">Ajouter un appareil à l'utilisateur</a>
+        <!-- <a href="/add_device_list" class="menu-button">Ajouter un appareil à la liste</a> -->
+        <!-- <a href="/show_matrix" class="menu-button">Voir la matrice de proba</a> -->
+        <!-- <a href="/gen_consumption" class="menu-button">Générer le fichier de consommation</a> -->
+    </nav>
     <div class="table-container">
     <h1>Ajouter une habitude de sommeil</h1>    
     <form action="/enregistrer_probabilites/" method="post">
@@ -11,11 +17,11 @@
                 <p>Quelles sont vos habitudes de sommeil ?</p>
                 <div class="input-group">
                     <label for="getuptime">Heure de lever</label>
-                    <input type="time" id="getuptime" name="getuptime">
+                    <input type="time" id="getuptime" name="getuptime" value="07:00">
                 </div>
                 <div class="input-group">
                     <label for="bedtime">Heure de coucher</label>
-                    <input type="time" id="bedtime" name="bedtime">
+                    <input type="time" id="bedtime" name="bedtime" value="22:00">
                 </div>
             </div>
     
@@ -26,11 +32,11 @@
                     <div class="homeInputs">
                         <div class="input-group">
                             <label for="home_start_1">Début</label>
-                            <input type="time" id="home_start_1" name="home_start[]">
+                            <input type="time" id="home_start_1" name="home_start[]" value="00:00">
                         </div>
                         <div class="input-group">
                             <label for="home_end_1">Fin</label>
-                            <input type="time" id="home_end_1" name="home_end[]">
+                            <input type="time" id="home_end_1" name="home_end[]" value="23:59">
                         </div>
                     </div>
                 </div>

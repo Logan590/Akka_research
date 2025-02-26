@@ -31,14 +31,6 @@
             "appel_puissance_W": 2200,
             "proba_defaut": 0.1,
             "proba_off": 0.0
-        },
-        {
-            "id": 5,
-            "nom": "Four electrique",
-            "consommation_W": 2500,
-            "appel_puissance_W": 3000,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
         }
     ]
 }

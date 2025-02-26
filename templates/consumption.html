@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consommation Électrique</title>
+    <link rel="stylesheet" href="../static/style.css">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
+    <nav class="main-nav">
+        <a href="/add_devices" class="menu-button">Ajouter un appareil à l'utilisateur</a>
+        <a href="/add_duration" class="menu-button">Ajouter une durée d'utilisation</a>
+        <a href="/show_matrix" class="menu-button">Voir la matrice de proba</a>
+        <a href="/gen_consumption" class="menu-button">Regénérer le fichier de consommation</a>
+        <a href="/add_device_list" class="menu-button">Ajouter un appareil à la liste</a>
+    </nav>
     <h1>Consommation Électrique</h1>
     <div id="charts"></div>  <!-- Conteneur pour tous les graphiques -->
     <h1>Consommation Électrique Cumulée</h1>

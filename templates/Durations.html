@@ -2,7 +2,14 @@
 {% include "head.html" %}
 
 <body>
-    {% include "menu.html" %}
+    <nav class="main-nav">
+        <a href="/add_device_list" class="menu-button">Ajouter un appareil à la liste</a>
+        <!-- <a href="/add_duration" class="menu-button">Ajouter une durée d'utilisation</a> -->
+        <a href="/add_devices" class="menu-button">Ajouter un appareil à l'utilisateur</a>
+        
+        <!-- <a href="/show_matrix" class="menu-button">Voir la matrice de proba</a>
+        <a href="/gen_consumption" class="menu-button">Générer le fichier de consommation</a> -->
+    </nav>
     <div class="table-container">
         <form action="/add_duration/" method="post">
             <table>
