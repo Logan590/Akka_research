@@ -1,6 +1,43 @@
 <!DOCTYPE html>
-{% include "head.html" %}
+<!-- {% include "head.html" %} -->
+<head>
+    <style>
+        .table-conteneur {
+    overflow: auto;
+    max-height: 80vh; /* Ajuste la hauteur maximale */
+    position: relative;
+}
 
+.table-scrollable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-scrollable th,
+.table-scrollable td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+.table-scrollable thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f8f8f8;
+    z-index: 2;
+}
+
+.table-scrollable tbody tr td:first-child,
+.table-scrollable thead th:first-child {
+    position: sticky;
+    left: 0;
+    background-color: #f8f8f8;
+    z-index: 3;
+}
+
+    </style>
+</head>
 <body>
     <!-- {% include "menu.html" %} -->
     <div class="table-container">

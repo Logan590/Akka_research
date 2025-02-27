@@ -1,43 +1,248 @@
 <!DOCTYPE html>
-{% include "head.html" %}
+
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GESMUH</title>
+    <style>
+        :root {
+            --bg-color: #001F33;
+            --form-color: #012f4e;
+            --text-color: #e0e0e0;
+            --primary-color: #FFB81B;
+            --secondary-color: #00bfff;
+            --third-color: #ffc64a;
+            --border-color: #444;
+            --input-bg: #222;
+            --input-border: #666;
+            --table-header-bg: #1e90ff;
+            --table-header-text: #fff;
+            --table-row-bg: #01263f;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            /* Centre le contenu du menu */
+            align-items: center;
+            padding: 10px 20px;
+            position: relative;
+        }
+
+        /* Container for navigation items */
+        .nav-container {
+            display: flex;
+            width: 100%;
+        }
+
+
+        nav {
+            justify-content: center;
+            /* padding: 10px 0;  */
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            width: 100%;
+            display: flex;
+
+        }
+
+        nav a {
+            color: var(--bg-color);
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: var(--primary-color);
+            margin-left: 10px;
+        }
+
+        nav a:hover {
+            background-color: var(--third-color);
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+
+
+        h1,
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+            color: var(--primary-color);
+        }
+
+        button,
+        input[type="submit"] {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            ;
+            border: none;
+            padding: 14px 24px;
+            margin: 15px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease-in-out;
+            display: block;
+            width: 100%;
+        }
+
+        button:hover,
+        input[type="submit"]:hover {
+            background: var(--third-color);
+        }
+
+
+        input,
+        select,
+        textarea {
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid var(--input-border);
+            border-radius: 5px;
+            background: var(--input-bg);
+            color: var(--text-color);
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+
+
+        .table-conteneur {
+            max-height: 70vh;
+            /* Hauteur maximale */
+            overflow-x: auto;
+            /* Active le scroll horizontal */
+            overflow-y: auto;
+            /* Active le scroll vertical */
+            border: 1px solid #ddd;
+            position: relative;
+            white-space: nowrap;
+            /* Empêche la table de se compresser */
+        }
+
+        table {
+            border-collapse: collapse;
+            min-height: 80vh;
+            min-width: 800px;
+            /* Largeur minimale pour forcer le scroll */
+            width: max-content;
+            /* Permet à la table de s'étendre selon le contenu */
+        }
+
+
+        /* Fixation du premier en-tête */
+        thead tr:first-child th {
+            position: sticky;
+            top: 0;
+            background: var(--form-color);
+            /* Ajout d’un fond */
+            z-index: 2;
+            border-bottom: 2px solid #ccc;
+            padding: 10px;
+        }
+
+        /* Fixation de la première colonne */
+        tbody td:first-child,
+        thead th:first-child {
+            position: sticky;
+            left: 0;
+            background: var(--form-color);
+            /* Ajout d’un fond */
+            z-index: 3;
+            border-right: 2px solid #ddd;
+        }
+
+        /* Correction du premier élément combiné */
+        thead tr:first-child th:first-child {
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 4;
+            background: var(--form-color);
+            /* Ajout d’un fond distinct */
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        form {
+    background: var(--form-color);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* overflow: hidden; */
+    width: 100%;
+}
+
+    </style>
+</head>
+
 <body>
     <nav class="main-nav">
         <a href="/add_device_list" class="menu-button">Ajouter un appareil à la liste</a>
         <a href="/add_devices" class="menu-button">Ajouter un appareil à l'utilisateur</a>
         <a href="/add_duration" class="menu-button">Ajouter une durée d'utilisation</a>
-        <!-- 
-        <a href="/show_matrix" class="menu-button">Voir la matrice de proba</a>
-        <a href="/gen_consumption" class="menu-button">Générer le fichier de consommation</a> -->
     </nav>
     <div class="table-container">
-<h1>Matrice de probabilité de mise en service</h1>
-<form method="post" action="/gen_consumption/">
-    <table>
-        <thead>
-            <tr>
-                <th>Plage Horaire</th>
-                {% for appareil in devices %}
-                    <th>{{ appareil.nom }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in probabilites %}
-                {% for plage_horaire, proba in item.items() %}
-                    <tr>
-                        <td>{{ plage_horaire }}</td>
-                        {% for appareil in devices %}
+        <h1>Matrice de probabilité de mise en service</h1>
+        <form method="post" action="/gen_consumption/">
+            <div class="table-conteneur">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Plage Horaire</th>
+                            {% for appareil in devices %}
+                            <th>{{ appareil.nom }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in probabilites %}
+                        {% for plage_horaire, proba in item.items() %}
+                        <tr>
+                            <td>{{ plage_horaire }}</td>
+                            {% for appareil in devices %}
                             <td>
-                                <input type="number" name="proba_{{ plage_horaire }}_{{ appareil.id }}" step="0.001" min="0" max="1" value="{{ proba[loop.index - 1] }}">
+                                <input type="number" name="proba_{{ plage_horaire }}_{{ appareil.id }}" step="0.001"
+                                    min="0" max="1" value="{{ proba[loop.index - 1] }}">
                             </td>
+                            {% endfor %}
+                        </tr>
                         {% endfor %}
-                    </tr>
-                {% endfor %}
-            {% endfor %}
-        </tbody>
-    </table>
-    <button type="submit">Enregistrer</button>
-</form>
-</div>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <button type="submit">Enregistrer</button>
+        </form>
+    </div>
 </body>
+
 </html>
