@@ -2,6 +2,7 @@ env/
 Prédiction conso/
 json/
 output/
+app/__pycache__
 # json/Matrix.json
 # json/DevicesOwnByUser.json
 # json/DeviceDurations.json
