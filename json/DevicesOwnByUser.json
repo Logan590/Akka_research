@@ -1,50 +1,10 @@
 {
     "devices": [
         {
-            "id": 2,
-            "nom": "Congelateur",
-            "consommation_W": 200,
-            "appel_puissance_W": 800,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 5,
-            "nom": "Four electrique",
-            "consommation_W": 2500,
-            "appel_puissance_W": 3000,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
             "id": 10,
             "nom": "Aspirateur",
             "consommation_W": 800,
             "appel_puissance_W": 1600,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 11,
-            "nom": "Climatiseur",
-            "consommation_W": 2000,
-            "appel_puissance_W": 3000,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 14,
-            "nom": "Chauffe-eau electrique",
-            "consommation_W": 3000,
-            "appel_puissance_W": 3500,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 15,
-            "nom": "Fer a repasser",
-            "consommation_W": 1200,
-            "appel_puissance_W": 1500,
             "proba_defaut": 0.1,
             "proba_off": 0.0
         },
@@ -65,82 +25,10 @@
             "proba_off": 0.0
         },
         {
-            "id": 23,
-            "nom": "Four electrique (3000W)",
-            "consommation_W": 3000,
-            "appel_puissance_W": 3500,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 24,
-            "nom": "Friteuse",
-            "consommation_W": 1800,
-            "appel_puissance_W": 2000,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
             "id": 27,
             "nom": "Bouilloire",
             "consommation_W": 2200,
             "appel_puissance_W": 2500,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 28,
-            "nom": "Console de jeu, PlayStation 5",
-            "consommation_W": 200,
-            "appel_puissance_W": 250,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 29,
-            "nom": "Cafetiere",
-            "consommation_W": 1000,
-            "appel_puissance_W": 1500,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 30,
-            "nom": "Four a micro-ondes (1000W)",
-            "consommation_W": 1000,
-            "appel_puissance_W": 1200,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 32,
-            "nom": "Gaufrier",
-            "consommation_W": 1000,
-            "appel_puissance_W": 1200,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 35,
-            "nom": "Chauffage d'appoint",
-            "consommation_W": 2000,
-            "appel_puissance_W": 2500,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 43,
-            "nom": "ecran d'ordinateur",
-            "consommation_W": 50,
-            "appel_puissance_W": 100,
-            "proba_defaut": 0.1,
-            "proba_off": 0.0
-        },
-        {
-            "id": 46,
-            "nom": "Chargeur de telephone",
-            "consommation_W": 5,
-            "appel_puissance_W": 10,
             "proba_defaut": 0.1,
             "proba_off": 0.0
         },

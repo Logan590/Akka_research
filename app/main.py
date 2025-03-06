@@ -55,6 +55,10 @@ async def show_matrix(request: Request):
         print("Vous devez d'abord renseigner une matrice de probabilité")
     return templates.TemplateResponse("matrice.html", {"request": request, "probabilites":matrice, "devices": devices_own})
 
+@app.get("/additional_tool", response_class=HTMLResponse)
+async def additional_tool(request: Request):
+    return templates.TemplateResponse("additional_tool.html", {"request": request})
+
 @app.get("/gen_consumption", response_class=HTMLResponse)
 async def gen_consumption(request: Request):
     f.generate_multiple_files()
@@ -77,6 +81,13 @@ async def get_consumption():
     device_names = [device["nom"] for device in devices_info["devices"]]
 
     return JSONResponse(content={"datasets": data, "deviceNames": device_names})
+
+@app.post("/gen_consumption/")
+async def gen_consumption(request: Request):
+    f.generate_multiple_files()
+    with open("templates/consumption.html", "r", encoding="utf-8") as fi:
+        html_content = fi.read()
+    return HTMLResponse(content=html_content)
 
 ##########################################################################################################
 #Routes POST
@@ -174,7 +185,8 @@ async def enregistrer_probabilites(request: Request):
     with open("json/Matrix.json", "w") as file:
         json.dump(matrice, file, indent=4)
 
-    return templates.TemplateResponse("matrice.html", {"request": request, "probabilites":matrice, "devices":devices_own})
+    return RedirectResponse("/gen_consumption/", status_code=303)
+    # return templates.TemplateResponse("matrice.html", {"request": request, "probabilites":matrice, "devices":devices_own})
 
 
 @app.post("/add_duration/")
@@ -236,9 +248,3 @@ def add_device(
     return RedirectResponse("/", status_code=303)
 
 
-@app.post("/gen_consumption/")
-async def gen_consumption(request: Request):
-    f.generate_multiple_files()
-    with open("templates/consumption.html", "r", encoding="utf-8") as fi:
-        html_content = fi.read()
-    return HTMLResponse(content=html_content)
