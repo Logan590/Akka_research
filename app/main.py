@@ -82,7 +82,6 @@ async def get_consumption():
 
     return JSONResponse(content={"datasets": data, "deviceNames": device_names})
 
-
 ##########################################################################################################
 #Routes POST
 ##########################################################################################################
@@ -245,3 +244,11 @@ def add_device(
     with open("json/DevicesList.json", "w", encoding="utf-8") as file:
         json.dump({"devices": data}, file, indent=4, ensure_ascii=False)
     return RedirectResponse("/", status_code=303)
+
+
+@app.post("/gen_consumption/")
+async def gen_consumption(request: Request):
+    f.generate_multiple_files()
+    with open("templates/consumption.html", "r", encoding="utf-8") as fi:
+        html_content = fi.read()
+    return HTMLResponse(content=html_content)
