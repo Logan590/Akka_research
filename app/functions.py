@@ -1,4 +1,5 @@
 import json
+import csv
 import random
 import os
 
@@ -38,6 +39,15 @@ def load_json(filename):
 def save_json(filename, data):
     with open(filename, "w", encoding="utf-8") as file:
         json.dump(data, file, indent=4)
+
+# 📌 Sauvegarder un fichier CSV
+def save_csv(filename, data):
+    if not os.path.exists(filename):
+        with open(filename, "a", encoding="utf-8") as f:
+            f.write(','.join([str(f"{h:02d}")+"h"+str(f"{m:02d}") for h in range (24) for m in range(60)])+"\n")
+    with open(filename, "a", encoding="utf-8", newline='') as f:
+        csv_file = csv.writer(f, delimiter=',')
+        csv_file.writerow([sum(device_power) for instant_conso in data for minute, device_power in instant_conso.items()])
 
 # 📌 Trouver les durées de fonctionnement pour un appareil donné
 def get_durations(appareil_id, durations):
@@ -98,3 +108,5 @@ def generate_multiple_files():
             os.makedirs("output")
         save_json(f"output/consommation_{i}.json", consommation)
         print(f"✅ Fichier consommation_{i}.json généré.")
+        save_csv(f"output/consommations.csv", consommation)
+        print(f"✅ Fichier consommation.csv généré.")

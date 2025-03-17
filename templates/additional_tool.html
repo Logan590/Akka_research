@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% include "head.html" %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Définition des Probabilités</title>
+    <script>
+        function calculateProbability() {
+            const appareils = document.querySelectorAll(".appareil");
+            const minutesPerDay = 24 * 60;
+            const minutesPerWeek = 7 * minutesPerDay;
+            const minutesPerMonth = 30 * minutesPerDay;
+
+            appareils.forEach(appareil => {
+                let usageCount = parseInt(appareil.querySelector(".usage-count").value) || 0;
+                let frequency = appareil.querySelector(".frequency").value;
+                let totalMinutes = 1;
+
+                if (frequency === "jour") totalMinutes = minutesPerDay;
+                else if (frequency === "semaine") totalMinutes = minutesPerWeek;
+                else if (frequency === "mois") totalMinutes = minutesPerMonth;
+
+                let probability = usageCount / totalMinutes;
+                appareil.querySelector(".probability").textContent = probability.toFixed(6);
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Aide au remplissage de la matrice de probabilit&eacute;</h1>
+    <form oninput="calculateProbability()" style="text-align: center; font-size: 1.2em;">
+        <h3>Matrice de Probabilité de Mise en Service</h3>
+        <br>
+        <p>
+            Cette matrice indique la probabilité qu'un appareil spécifique soit mis en service à chaque intervalle de 10
+            minutes dans une journée. Pour chaque minute de cet intervalle de 10 minutes, l’appareil possède une
+            probabilité identique de se déclencher.</p>
+            <br>
+        <h3>Fonctionnement :</h3>
+        <br>
+        <p>
+            <strong>• Plage horaire : </strong> Chaque ligne représente une plage horaire de 10 minutes (ex : 00h00,
+            00h10, etc.).<br>
+            <strong>• Appareils : </strong> Les colonnes correspondent aux différents appareils sélectionnés
+            précédemment.<br>
+            <strong>• Probabilités : </strong> Les valeurs numériques indiquent la probabilité de mise en service de
+            l'appareil pendant cette plage horaire. <br>Une valeur de 1 signifie que l'appareil a une probabilité maximale
+            de se déclencher pendant cette période, tandis qu'une valeur de 0 indique qu'il n'y a aucune chance de
+            déclenchement.<br><br>
+        </p>
+        <br>
+        <h3>Définition des Probabilités de Déclenchement</h3>
+        <div class="appareil">
+            <label>Fr&eacute;quence d'utilisation :</label>
+            <input type="number" class="usage-count" placeholder="Nombre d'utilisations">
+            <select class="frequency">
+                <option value="jour">par jour</option>
+                <option value="semaine">par semaine</option>
+                <option value="mois">par mois</option>
+            </select><br>
+            <span>Probabilité: <span class="probability">0.000000</span></span>
+        </div>
+        <a href="/show_matrix" class="menu-button">Retourner à la matrice de probabilit&eacute;</a>
+    </form>
+</body>
+
+</html>

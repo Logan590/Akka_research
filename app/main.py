@@ -21,12 +21,12 @@ async def index(request: Request):
     
 
 @app.get("/add_devices", response_class=HTMLResponse)
-async def det_device_list(request: Request):
+async def add_device(request: Request):
     devices_list = f.load_devices()
     return templates.TemplateResponse("Set_device_list.html", {"request": request, "devices": devices_list})
 
 @app.get("/add_device_list", response_class=HTMLResponse)
-async def det_device_list(request: Request):
+async def set_device_list(request: Request):
     devices_list = f.load_devices()
     return templates.TemplateResponse("Add_device.html", {"request": request, "devices": devices_list})
 
@@ -55,6 +55,10 @@ async def show_matrix(request: Request):
         print("Vous devez d'abord renseigner une matrice de probabilité")
     return templates.TemplateResponse("matrice.html", {"request": request, "probabilites":matrice, "devices": devices_own})
 
+@app.get("/additional_tool", response_class=HTMLResponse)
+async def additional_tool(request: Request):
+    return templates.TemplateResponse("additional_tool.html", {"request": request})
+
 @app.get("/gen_consumption", response_class=HTMLResponse)
 async def gen_consumption(request: Request):
     f.generate_multiple_files()
@@ -77,6 +81,7 @@ async def get_consumption():
     device_names = [device["nom"] for device in devices_info["devices"]]
 
     return JSONResponse(content={"datasets": data, "deviceNames": device_names})
+
 
 ##########################################################################################################
 #Routes POST
@@ -174,7 +179,8 @@ async def enregistrer_probabilites(request: Request):
     with open("json/Matrix.json", "w") as file:
         json.dump(matrice, file, indent=4)
 
-    return templates.TemplateResponse("matrice.html", {"request": request, "probabilites":matrice, "devices":devices_own})
+    return RedirectResponse("/gen_consumption/", status_code=303)
+    # return templates.TemplateResponse("matrice.html", {"request": request, "probabilites":matrice, "devices":devices_own})
 
 
 @app.post("/add_duration/")
@@ -224,21 +230,18 @@ def add_device(
     }
 
     # Vérifier si l'appareil existe déjà
-    for i, d in enumerate(data["devices"]):
+    for i, d in enumerate(data):
         if d["id"] == id:
-            data["devices"][i] = device
-            save_devices(data)
+            data[i] = device
+            # Sauvegarder dans DevicesOwnByUser.json
+            with open("json/DevicesList.json", "w", encoding="utf-8") as file:
+                json.dump({"devices": data}, file, indent=4, ensure_ascii=False)
             return RedirectResponse("/", status_code=303)
 
     # Ajouter un nouvel appareil
-    data["devices"].append(device)
-    save_devices(data)
+    data.append(device)
+
+    # Sauvegarder dans DevicesOwnByUser.json
+    with open("json/DevicesList.json", "w", encoding="utf-8") as file:
+        json.dump({"devices": data}, file, indent=4, ensure_ascii=False)
     return RedirectResponse("/", status_code=303)
-
-
-@app.post("/gen_consumption/")
-async def gen_consumption(request: Request):
-    f.generate_multiple_files()
-    with open("templates/consumption.html", "r", encoding="utf-8") as fi:
-        html_content = fi.read()
-    return HTMLResponse(content=html_content)

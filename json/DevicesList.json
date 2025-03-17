@@ -290,7 +290,7 @@
         },
         {
             "id": 37,
-            "nom": "Pompe a chaleur air-air maison 100m²",
+            "nom": "Pompe a chaleur air-air maison 100mÃƒâ€šÃ‚Â²",
             "consommation_W": 2500,
             "appel_puissance_W": 3000,
             "proba_defaut": 0.1,
@@ -322,7 +322,7 @@
         },
         {
             "id": 41,
-            "nom": "Pompe a chaleur air-air bureau 100m²",
+            "nom": "Pompe a chaleur air-air bureau 100mÃƒâ€šÃ‚Â²",
             "consommation_W": 3000,
             "appel_puissance_W": 3500,
             "proba_defaut": 0.1,
@@ -330,7 +330,7 @@
         },
         {
             "id": 42,
-            "nom": "Pompe a chaleur air-air ecole 100m²",
+            "nom": "Pompe a chaleur air-air ecole 100mÃƒâ€šÃ‚Â²",
             "consommation_W": 3500,
             "appel_puissance_W": 4000,
             "proba_defaut": 0.1,

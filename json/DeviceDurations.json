@@ -1,31 +1,6 @@
 [
     {
-        "appareil_id": "2",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "5",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
         "appareil_id": "10",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "11",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "14",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "15",
         "duration_min": 0.0,
         "duration_max": 0.0
     },
@@ -40,52 +15,7 @@
         "duration_max": 0.0
     },
     {
-        "appareil_id": "23",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "24",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
         "appareil_id": "27",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "28",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "29",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "30",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "32",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "35",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "43",
-        "duration_min": 0.0,
-        "duration_max": 0.0
-    },
-    {
-        "appareil_id": "46",
         "duration_min": 0.0,
         "duration_max": 0.0
     },
